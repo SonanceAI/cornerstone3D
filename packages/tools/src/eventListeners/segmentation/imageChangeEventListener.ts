@@ -123,7 +123,8 @@ function _imageChangeEventListener(evt) {
     });
 
     if (!validActor) {
-      viewport.removeActors([actor.uid]);
+      // viewport.removeActors([actor.uid]);
+      actor.actor.getMapper().getInputData().setDerivedImage(null);
     }
   });
 
@@ -203,7 +204,7 @@ function _imageChangeEventListener(evt) {
           imageId: derivedImageId,
           representationUID: `${segmentationId}-${SegmentationRepresentations.Labelmap}`,
           callback: ({ imageActor }) => {
-            imageActor.getMapper().setInputData(imageData);
+            // imageActor.getMapper().setInputData(imageData);
           },
         },
       ]);

@@ -224,7 +224,8 @@ async function run() {
   const allImageIds = viewport.getImageIds();
   const firstImage = allImageIds[0];
   const segImages = await imageLoader.createAndCacheDerivedImages(
-    [firstImage],
+    // [firstImage],
+    allImageIds,
     {
       skipCreateBuffer: true,
       onCacheAdd: csUtils.VoxelManager.addInstanceToImage,
@@ -247,13 +248,14 @@ async function run() {
       representation: {
         type: csToolsEnums.SegmentationRepresentations.Labelmap,
         data: {
+          referencedImageIds: allImageIds,
           imageIds: segmentationImageIds,
         },
       },
     },
   ]);
   // Add the segmentation representation to the viewport
-  await segmentation.addSegmentationRepresentations(viewport.id, [
+  segmentation.addSegmentationRepresentations(viewport.id, [
     {
       segmentationId,
       type: csToolsEnums.SegmentationRepresentations.Labelmap,
