@@ -274,7 +274,7 @@ function run() {
     // You can run this with --no-cache after the serve to prevent caching
     // which can help when doing certain types of development.
     shell.exec(
-      `rspack serve --host 0.0.0.0 ${
+      `rspack serve --host 0.0.0.0 --port 3003 ${
         options.https ? '--https' : ''
       } --config ${webpackConfigPath}`
     );
