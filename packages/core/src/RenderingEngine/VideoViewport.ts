@@ -50,7 +50,15 @@ export type CanvasScalarData = Uint8ClampedArray & {
  * looking into an internal scene, and an associated target output `canvas`.
  */
 class VideoViewport extends Viewport {
-  public static frameRangeExtractor = /(\/frames\/|[&?]frameNumber=)([^/&?]*)/i;
+  // sonance-change: we are changing the format of how frames are embedded into the imageId
+  // before: \/frames/\
+  // eg: https://imageId/frames/frameNumber
+  // after: ?frames
+  // eg: https://imageId?frames=frameNumber
+  // the same change is also done at `getCurrentImageId` and `getViewReferenceId` methods
+  // in summary, the format of frames has to be changed wherever the code intends to
+  // either format it or run logic to determine if it is a valid imageId or not
+  public static frameRangeExtractor = /(\?frames|[&?]frameNumber=)([^/&?]*)/i;
 
   public modality;
   // Viewport Data
@@ -773,10 +781,10 @@ class VideoViewport extends Viewport {
    */
   public getCurrentImageId() {
     const current = this.imageId.replace(
-      '/frames/1',
+      '?frames=1',
       this.isPlaying
-        ? `/frames/${this.frameRange[0]}-${this.frameRange[1]}`
-        : `/frames/${this.getFrameNumber()}`
+        ? `?frames=${this.frameRange[0]}-${this.frameRange[1]}`
+        : `?frames=${this.getFrameNumber()}`
     );
     return current;
   }
@@ -796,8 +804,8 @@ class VideoViewport extends Viewport {
       }-${sliceIndex[1] + 1}`;
     }
     const baseTarget = this.imageId.replace(
-      '/frames/1',
-      `/frames/${1 + sliceIndex}`
+      '?frames=1',
+      `?frames=${1 + sliceIndex}`
     );
     return `videoId:${baseTarget}`;
   }
