@@ -539,7 +539,7 @@ class Viewport {
       return;
     }
     const renderer = this.getRenderer();
-    renderer.removeViewProp(actorEntry.actor as vtkProp); // removeActor not implemented in vtk?
+    renderer?.removeViewProp(actorEntry.actor as vtkProp); // removeActor not implemented in vtk?
     this._actors.delete(actorUID);
   }
 
