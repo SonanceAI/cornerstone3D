@@ -207,7 +207,7 @@ function _imageChangeEventListener(evt) {
             if (viewport instanceof VideoViewport) {
               imageActor.getMapper().getInputData().setDerivedImage(imageData);
             } else {
-              imageActor.getMapper().getInputData().setImageData(imageData);
+              imageActor.getMapper().getInputData().setInputData(imageData);
             }
           },
         },
