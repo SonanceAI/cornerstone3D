@@ -217,7 +217,10 @@ export default class CanvasActor {
       indexToWorld: (index, destPoint) =>
         imageData.imageData.indexToWorld(index, destPoint),
       getDimensions: () => imageData.dimensions,
-      getScalarData: () => this.derivedImage?.getPixelData(),
+      getScalarData: () => {
+        const a = this.derivedImage?.getPixelData?.();
+        return a;
+      },
       getDirection: () => imageData.direction,
       getSpacing: () => imageData.spacing,
       setOrigin: () => null,
