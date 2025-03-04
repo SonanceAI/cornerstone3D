@@ -58,7 +58,7 @@ class VideoViewport extends Viewport {
   // the same change is also done at `getCurrentImageId` and `getViewReferenceId` methods
   // in summary, the format of frames has to be changed wherever the code intends to
   // either format it or run logic to determine if it is a valid imageId or not
-  public static frameRangeExtractor = /(\?frames|[&?]frameNumber=)([^/&?]*)/i;
+  public static frameRangeExtractor = /(\?frames=|[&?]frameNumber=)([^/&?]*)/i;
 
   public modality;
   // Viewport Data
