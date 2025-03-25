@@ -61,6 +61,10 @@ function getUncompressedImageFrame(
     );
   } else if (bitsAllocated === 16) {
     frameOffset = pixelDataOffset + frameIndex * pixelsPerFrame * 2;
+    frameOffset = Math.min(
+      frameOffset,
+      dataSet.byteArray.length - pixelsPerFrame * 2
+    );
     if (frameOffset >= dataSet.byteArray.length) {
       throw new Error('frame exceeds size of pixelData');
     }

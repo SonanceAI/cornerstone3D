@@ -141,7 +141,14 @@ export function metadataForDataset(
   if (type === MetadataModules.IMAGE_PLANE) {
     const imageOrientationPatient = extractOrientationFromDataset(dataSet);
     const imagePositionPatient = extractPositionFromDataset(dataSet);
-    const pixelSpacing = extractSpacingFromDataset(dataSet);
+    // const imageOrientationPatient = extractOrientationFromDataset(dataSet) ?? [
+    //   -0.07148114, 0.9974415, 0.0009962108, -0.057384517, -0.003115317,
+    //   -0.9983473,
+    // ];
+    // const imagePositionPatient = extractPositionFromDataset(dataSet) ?? [
+    //   -39.937622, -138.09912, 81.818695,
+    // ];
+    const pixelSpacing = extractSpacingFromDataset(dataSet) ?? [1, 1];
     const sliceThickness = extractSliceThicknessFromDataset(dataSet);
 
     let columnPixelSpacing = null;
