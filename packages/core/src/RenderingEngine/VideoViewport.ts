@@ -1195,14 +1195,16 @@ class VideoViewport extends Viewport {
     this.canvasContext.resetTransform();
 
     // This is stack new image to agree with stack/non-volume viewports
-    triggerEvent(this.element, EVENTS.STACK_NEW_IMAGE, {
-      element: this.element,
-      viewportId: this.id,
-      viewport: this,
-      renderingEngineId: this.renderingEngineId,
-      time: this.videoElement.currentTime,
-      duration: this.videoElement.duration,
-    });
+    if (!this.isPlaying) {
+      triggerEvent(this.element, EVENTS.STACK_NEW_IMAGE, {
+        element: this.element,
+        viewportId: this.id,
+        viewport: this,
+        renderingEngineId: this.renderingEngineId,
+        time: this.videoElement.currentTime,
+        duration: this.videoElement.duration,
+      });
+    }
     triggerEvent(this.element, EVENTS.IMAGE_RENDERED, {
       element: this.element,
       viewportId: this.id,
