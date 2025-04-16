@@ -227,9 +227,11 @@ function _setLabelmapColorAndOpacity(
   const viewport = getEnabledElementByViewportId(viewportId)?.viewport;
 
   if (viewport instanceof VideoViewport) {
-    const actorEntry = viewport.getActors()[0];
-    const canvasActor = actorEntry.actor as CanvasActor;
-    canvasActor.canvasProperties.opacity = labelmapStyle.fillAlpha;
+    const actorEntries = viewport.getActors() ?? [];
+    for (const actorEntry of actorEntries) {
+      const canvasActor = actorEntry.actor as CanvasActor;
+      canvasActor.canvasProperties.opacity = labelmapStyle.fillAlpha;
+    }
   }
 
   // Todo: the below loop probably can be optimized so that we don't hit it
