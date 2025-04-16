@@ -1,6 +1,7 @@
 import type { Types } from '@cornerstonejs/core';
 import {
   getEnabledElementByViewportId,
+  VideoViewport,
   VolumeViewport,
 } from '@cornerstonejs/core';
 
@@ -30,6 +31,7 @@ import { internalGetHiddenSegmentIndices } from '../../../stateManagement/segmen
 import { getActiveSegmentIndex } from '../../../stateManagement/segmentation/getActiveSegmentIndex';
 import type vtkVolume from '@kitware/vtk.js/Rendering/Core/Volume';
 import { getLabelmapActorEntry } from '../../../stateManagement/segmentation/helpers/getSegmentationActor';
+import type CanvasActor from 'packages/core/dist/esm/RenderingEngine/CanvasActor';
 
 // 255 itself is used as preview color, so basically
 // we have 254 colors to use for the segments if we are using the preview.
@@ -221,6 +223,14 @@ function _setLabelmapColorAndOpacity(
     segmentationId,
     type: SegmentationRepresentations.Labelmap,
   });
+
+  const viewport = getEnabledElementByViewportId(viewportId)?.viewport;
+
+  if (viewport instanceof VideoViewport) {
+    const actorEntry = viewport.getActors()[0];
+    const canvasActor = actorEntry.actor as CanvasActor;
+    canvasActor.canvasProperties.opacity = labelmapStyle.fillAlpha;
+  }
 
   // Todo: the below loop probably can be optimized so that we don't hit it
   // unless a config has changed. Right now we get into the following loop
