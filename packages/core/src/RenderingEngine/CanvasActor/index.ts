@@ -13,7 +13,7 @@ import CanvasMapper from './CanvasMapper';
 export default class CanvasActor {
   private image;
   private derivedImage;
-  private canvasProperties = new CanvasProperties(this);
+  public canvasProperties = new CanvasProperties(this);
   private visibility = false;
   private mapper = new CanvasMapper(this);
   private viewport;

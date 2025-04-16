@@ -6,7 +6,7 @@ import type CanvasActor from '.';
  */
 export default class CanvasProperties {
   private actor: CanvasActor;
-  private opacity = 0.4;
+  public opacity = 0.4;
   private outlineOpacity = 0.4;
   private transferFunction = [];
 

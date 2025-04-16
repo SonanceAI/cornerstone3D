@@ -227,10 +227,12 @@ function _setLabelmapColorAndOpacity(
   const viewport = getEnabledElementByViewportId(viewportId)?.viewport;
 
   if (viewport instanceof VideoViewport) {
-    const actorEntries = viewport.getActors() ?? [];
+    const actorEntries = (viewport as VideoViewport).getActors() ?? [];
     for (const actorEntry of actorEntries) {
       const canvasActor = actorEntry.actor as CanvasActor;
-      canvasActor.canvasProperties.opacity = labelmapStyle.fillAlpha;
+      canvasActor.canvasProperties.opacity = (
+        labelmapStyle as LabelmapStyle
+      ).fillAlpha;
     }
   }
 
